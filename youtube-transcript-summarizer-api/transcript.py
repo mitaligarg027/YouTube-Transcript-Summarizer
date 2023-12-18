@@ -30,7 +30,8 @@ def get_transcript_of_yt_video(v_id):
                     final_transcript = transcript.translate('en').fetch()
                 return final_transcript
 
-    except:
+    except Exception as e:
+        print(e)
 
         final_transcript = "0"
         return final_transcript

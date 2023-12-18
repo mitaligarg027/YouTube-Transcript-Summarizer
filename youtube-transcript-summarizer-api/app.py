@@ -18,7 +18,7 @@ def respond():
 
     # Retrieve the video_id from url parameter
     vid_url = request.args.get("video_url", None)
-
+    print(f"got name {vid_url}")
     if "youtube.com" in vid_url:
 
         try:
@@ -46,7 +46,7 @@ def respond():
         video_id = "False"
 
     # For debugging
-    # print(f"got name {video_id}")
+    print(f"got name {video_id}")
 
     body = {}
     data = {}
@@ -71,7 +71,7 @@ def respond():
         else:
             data['message'] = "Success"
             data['id'] = video_id
-            data['original_txt_length'], data['final_summ_length'], data['eng_summary'], data['hind_summary'], data['guj_summary'] = nlp_model(
+            data['original_txt_length'], data['final_summ_length'], data['eng_summary'] = nlp_model(
                 video_id)
 
     body["data"] = data
@@ -93,13 +93,8 @@ def index():
 
 def buildResponse(body):
 
-    # from flask import json, Response
-    # res = Response(response=json.dumps(body), status=statusCode, mimetype="application/json")
-    # res.headers["Content-Type"] = "application/json; charset=utf-8"
-    # return res
-
     response = jsonify(body)
-    # response.headers.add('Access-Control-Allow-Origin', '*')
+
 
     return response
 
@@ -109,4 +104,4 @@ if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
     app.run(threaded=True)
 
-# Deployment to Heroku Cloud.
+

@@ -3,7 +3,6 @@ import spacy
 import nltk
 from string import punctuation
 from transcript import get_transcript_of_yt_video
-from translate import g_translate
 from download import makeTextFile
 
 nltk.download('stopwords')
@@ -18,7 +17,6 @@ def text_summarizer(text):
     stop_words = stopwords.words('english')
 
     doc = nlp(text)
-    # tokens=[token.text for token in doc]
 
     word_frequencies = {}
     for word in doc:
@@ -89,15 +87,6 @@ def nlp_model(v_id):
 
         final_summary_length = len(english_summary)
 
-        hindi_translated_summary = g_translate(english_summary, 'hi')
-
-        gujarati_translated_summary = g_translate(english_summary, 'gu')
-
-        # print(original_text_length, '-->', final_summary_length)
-        # print(final_smy)
-
         makeTextFile("English", english_summary)
-        makeTextFile("Hindi", hindi_translated_summary)
-        makeTextFile("Gujarati", gujarati_translated_summary)
 
-        return original_text_length, final_summary_length, english_summary, hindi_translated_summary, gujarati_translated_summary
+        return original_text_length, final_summary_length, english_summary
